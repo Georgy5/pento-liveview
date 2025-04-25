@@ -31,18 +31,27 @@ defmodule PentoWeb.WrongLive do
   end
 
   def handle_event("guess", %{"number" => guess}, socket) do
-    # TODO compare guess to secret number
-    # Show a winning message when the user guesses correctly
-    # and incrememnt their score in the socket assigns
+    secret = socket.assigns.secret_number
     message = "Your guess: #{guess}. Wrong. Guess again."
-    score = socket.assigns.score - 1
-    {
-      :noreply,
-      assign(
-        socket,
-        message: message,
-        score: score
-      )
-    }
+
+    if String.to_integer(guess) === secret do
+      {
+        :noreply,
+        assign(
+          socket,
+          message: "Correct - We have a Winner!",
+          score: socket.assigns.score + 10
+        )
+      }
+    else
+      {
+        :noreply,
+        assign(
+          socket,
+          message: message,
+          score: socket.assigns.score - 1
+        )
+      }
+    end
   end
 end
