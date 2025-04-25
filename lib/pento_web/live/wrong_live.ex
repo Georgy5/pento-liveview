@@ -2,10 +2,13 @@ defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
   def mount(_params, _session, socket) do
+    # TODO assign random number as secret number to be guessed
     {:ok, assign(socket, score: 0, message: "Make a guess:")}
   end
 
   def render(assigns) do
+    # Show a restart message and button when the user wins
+    # Hint: checkout link/1 function using "patch"
     ~H"""
     <h1 class="mb-4 text-4xl font-extrabold">Your score: {@score}</h1>
     <h2>
@@ -28,6 +31,9 @@ defmodule PentoWeb.WrongLive do
   end
 
   def handle_event("guess", %{"number" => guess}, socket) do
+    # TODO compare guess to secret number
+    # Show a winning message when the user guesses correctly
+    # and incrememnt their score in the socket assigns
     message = "Your guess: #{guess}. Wrong. Guess again."
     score = socket.assigns.score - 1
     {
