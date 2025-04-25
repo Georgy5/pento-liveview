@@ -1,4 +1,5 @@
 # Pento
+Pento project from the book [Programming Phoenix LiveView](https://pragprog.com/titles/liveview/programming-phoenix-liveview/) version B12.0
 
 To start your Phoenix server:
 
@@ -7,9 +8,13 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## You're Wrong!
+The Pento app’s first live view is a simple number-guessing game called “You’re Wrong!”
 
-## Learn more
+![Pento](https://github.com/user-attachments/assets/a5456835-77b6-4dd5-81d5-0ff55da2599d)
+
+
+### Learn more
 
   * Official website: https://www.phoenixframework.org/
   * Guides: https://hexdocs.pm/phoenix/overview.html
