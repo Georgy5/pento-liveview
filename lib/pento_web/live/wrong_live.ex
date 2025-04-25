@@ -2,20 +2,26 @@ defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, score: 0, message: "Make a guess:",
-      secret_number: Enum.random(1..10))}
+    {:ok, assign_new_game(socket)}
+  end
+
+  defp assign_new_game(socket) do
+    assign(socket,
+      score: 0,
+      message: "Make a guess:",
+      secret_number: Enum.random(1..10),
+      won: false
+    )
   end
 
   def render(assigns) do
-    # Show a restart message and button when the user wins
-    # Hint: checkout link/1 function using "patch"
     ~H"""
     <h1 class="mb-4 text-4xl font-extrabold">Your score: {@score}</h1>
     <h2>
       {@message}
     </h2>
     <br />
-    <h2>
+    <div>
       <%= for n <- 1..10 do %>
         <.link
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold
@@ -26,21 +32,33 @@ defmodule PentoWeb.WrongLive do
           {n}
         </.link>
       <% end %>
-    </h2>
+    </div>
+    <br />
+    <%= if @won do %>
+      <.link
+        patch={~p"/guess"}
+        class="bg-green-500 hover:bg-green-700 text-white font-bold
+        py-2 px-4 border border-green-700 rounded m-1"
+      >
+        Restart Game
+      </.link>
+    <% end %>
     """
   end
 
   def handle_event("guess", %{"number" => guess}, socket) do
-    secret = socket.assigns.secret_number
+    secret_number = socket.assigns.secret_number
     message = "Your guess: #{guess}. Wrong. Guess again."
+    guessed_number = String.to_integer(guess)
 
-    if String.to_integer(guess) === secret do
+    if guessed_number === secret_number do
       {
         :noreply,
         assign(
           socket,
-          message: "Correct - We have a Winner!",
-          score: socket.assigns.score + 10
+          message: "You guessed correctly!",
+          score: socket.assigns.score + 10,
+          won: true
         )
       }
     else
@@ -53,5 +71,9 @@ defmodule PentoWeb.WrongLive do
         )
       }
     end
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, assign_new_game(socket)}
   end
 end
