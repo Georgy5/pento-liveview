@@ -2,8 +2,8 @@ defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
   def mount(_params, _session, socket) do
-    # TODO assign random number as secret number to be guessed
-    {:ok, assign(socket, score: 0, message: "Make a guess:")}
+    {:ok, assign(socket, score: 0, message: "Make a guess:",
+      secret_number: Enum.random(1..10))}
   end
 
   def render(assigns) do
