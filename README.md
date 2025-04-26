@@ -13,6 +13,7 @@ The Pento app’s first live view is a simple number-guessing game called “You
 
 ![Pento](https://github.com/user-attachments/assets/a5456835-77b6-4dd5-81d5-0ff55da2599d)
 
+[Loom video of "You're Wrong" game](https://www.loom.com/share/1ae5468766ab4fbb8ba5fb49b80f0162?sid=3a93caa5-05b1-4d38-babf-881ed9346bb3)
 
 ### Learn more
 
